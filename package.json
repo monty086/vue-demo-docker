@@ -52,7 +52,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-push": "git-branch-is master && npm run build && git add dist -f && git commit -m'add dist' "
+      "pre-push": "git-branch-is master && npm run build && git add dist -f && git commit -m'add dist' && git pull --rebase origin master"
     }
   }
 }
