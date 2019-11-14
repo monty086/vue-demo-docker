@@ -1,0 +1,9 @@
+FROM node_nginx_chromium
+WORKDIR /app
+COPY . /app/
+EXPOSE 80
+RUN  npm install  
+RUN npm run build:beta
+RUN  cp -r dist/* /usr/share/nginx/html
+RUN rm /etc/nginx/sites-enabled/default && cp default.conf /etc/nginx/sites-enabled/ && rm -rf /app
+CMD ["nginx","-g","daemon off;"]

@@ -1,3 +1,5 @@
+
+
 FROM node:8.16.2-jessie-slim
 
 RUN apt-get update  && apt-get install -y nginx
@@ -13,3 +15,11 @@ libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxc
 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 
+WORKDIR /app
+COPY . /app/
+EXPOSE 80
+RUN  npm install  
+RUN npm run build:test
+RUN  cp -r dist/* /usr/share/nginx/html
+RUN rm /etc/nginx/sites-enabled/default && cp default.conf /etc/nginx/sites-enabled/ && rm -rf /app
+CMD ["nginx","-g","daemon off;"]
